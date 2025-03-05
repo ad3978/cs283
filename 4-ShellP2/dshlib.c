@@ -8,28 +8,34 @@
 #include <sys/wait.h>
 #include "dshlib.h"
 
-Built_In_Cmds match_command(const char *input) {
-    if (strcmp(input, "cd") == 0) {
-        return BI_CMD_CD;
-    }
-    return BI_NOT_BI;
+Built_In_Cmds match_command(const char *input)
+{
+if (strcmp(input, "cd") == 0)
+{
+return BI_CMD_CD;
+}
+return BI_NOT_BI;
 }
 
-Built_In_Cmds exec_built_in_cmd(cmd_buff_t *cmd) {
-    Built_In_Cmds type = match_command(cmd->argv[0]);
+Built_In_Cmds exec_built_in_cmd(cmd_buff_t *cmd)
+{
+Built_In_Cmds type = match_command(cmd->argv[0]);
 
-    if (type == BI_CMD_CD) {
-        // If cd has an argument, change to that directory
-        if (cmd->argc > 1) {
-            if (chdir(cmd->argv[1]) != 0) {
-                perror("cd");
-            }
-        }
-        // If no argument, do nothing (per requirements)
-        return BI_EXECUTED;
-    }
+if (type == BI_CMD_CD)
+{
+// If cd has an argument, change to that directory
+if (cmd->argc > 1)
+{
+if (chdir(cmd->argv[1]) != 0)
+{
+perror("cd");
+}
+}
+// If no argument, do nothing (per requirements)
+return BI_EXECUTED;
+}
 
-    return type;
+return type;
 }
 /*
  * Implement your exec_local_cmd_loop function by building a loop that prompts the
